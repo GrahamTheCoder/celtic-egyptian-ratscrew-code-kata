@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BlackQueenValidator.cs" />
     <Compile Include="Card.cs" />
     <Compile Include="ISnapValidator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -53,6 +54,7 @@
     <Compile Include="Suit.cs" />
     <Compile Include="StandardSnapValidator.cs" />
     <Compile Include="Tests\SandwichSnapValidatorTests.cs" />
+    <Compile Include="Tests\BlackQueenValidatorTests.cs" />
     <Compile Include="Tests\StandardSnapValidatorTests.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 namespace CelticEgyptianRatscrewKata
 {
@@ -6,7 +7,16 @@ namespace CelticEgyptianRatscrewKata
     {
         public bool IsSnap(Stack stack)
         {
-            throw new NotImplementedException();
+            Rank? oneAgoRank = null;
+            Rank? twoAgoRank = null;
+            foreach (var card in stack)
+            {
+                if (twoAgoRank.HasValue && twoAgoRank.Value == card.Rank) return true;
+
+                twoAgoRank = oneAgoRank;
+                oneAgoRank = card.Rank;
+            }
+            return false;
         }
     }
 }

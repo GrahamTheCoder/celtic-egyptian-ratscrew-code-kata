@@ -21,7 +21,7 @@ namespace CelticEgyptianRatscrewKata.Tests
             {
                 new Card(Suit.Clubs, Rank.Ace),
                 new Card(Suit.Clubs, Rank.Two),
-                new Card(Suit.Clubs, Rank.Three),
+                new Card(Suit.Clubs, Rank.Three)
             };
             var stack = new Stack(expectedCardsInStack);
 

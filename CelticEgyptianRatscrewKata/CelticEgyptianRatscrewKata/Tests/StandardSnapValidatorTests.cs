@@ -13,7 +13,7 @@ namespace CelticEgyptianRatscrewKata.Tests
         [Test]
         public void EmptyStackIsNotSnap()
         {
-            var stack = new Stack(Cards());
+            var stack = CreateStack();
             var isSnap = IsSnap(stack);
             Assert.That(isSnap, Is.False);
         }
@@ -21,14 +21,14 @@ namespace CelticEgyptianRatscrewKata.Tests
         [Test]
         public void SingleCardIsNotSnap()
         {
-            var stack = new Stack(Cards(new Card(Suit.Clubs, Rank.Ace)));
+            var stack = CreateStack(new Card(Suit.Clubs, Rank.Ace));
             var isSnap = IsSnap(stack);
             Assert.That(isSnap, Is.False);
         }
 
-        private static IEnumerable<Card> Cards(params Card[] cards)
+        private static Stack CreateStack(params Card[] cards)
         {
-            return cards;
+            return new Stack(cards);
         }
 
         private bool IsSnap(Stack stack)

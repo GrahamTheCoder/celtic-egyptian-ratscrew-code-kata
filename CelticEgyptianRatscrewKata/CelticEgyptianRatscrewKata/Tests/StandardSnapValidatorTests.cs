@@ -42,11 +42,13 @@ namespace CelticEgyptianRatscrewKata.Tests
 
         private bool IsSnap(Stack stack)
         {
-            var lastRank = (Rank) -1;
+            Rank? lastRank = null;
             foreach (var card in stack)
             {
-                if (lastRank == card.)
+                if (lastRank.HasValue && lastRank.Value == card.Rank) return true;
+                lastRank = card.Rank;
             }
+            return false;
         }
     }
 }

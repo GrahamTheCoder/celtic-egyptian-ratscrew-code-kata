@@ -34,6 +34,15 @@ namespace CelticEgyptianRatscrewKata.Tests
             var isSnap = IsSnap(stack);
             Assert.That(isSnap, Is.True);
         }
+        [Test]
+        public void TwoEqualCardsAmongOthersIsSnap()
+        {
+            var card = new Card(Suit.Clubs, Rank.Two);
+            var card2 = new Card(Suit.Clubs, Rank.Ace);
+            var stack = CreateStack(card, card2, card2, card);
+            var isSnap = IsSnap(stack);
+            Assert.That(isSnap, Is.True);
+        }
 
         private static Stack CreateStack(params Card[] cards)
         {

@@ -26,6 +26,15 @@ namespace CelticEgyptianRatscrewKata.Tests
             Assert.That(isSnap, Is.False);
         }
 
+        [Test]
+        public void TwoEqualCardsIsSnap()
+        {
+            var card = new Card(Suit.Clubs, Rank.Ace);
+            var stack = CreateStack(card, card);
+            var isSnap = IsSnap(stack);
+            Assert.That(isSnap, Is.True);
+        }
+
         private static Stack CreateStack(params Card[] cards)
         {
             return new Stack(cards);
@@ -33,7 +42,11 @@ namespace CelticEgyptianRatscrewKata.Tests
 
         private bool IsSnap(Stack stack)
         {
-            return false;
+            var lastRank = (Rank) -1;
+            foreach (var card in stack)
+            {
+                if (lastRank == card.)
+            }
         }
     }
 }

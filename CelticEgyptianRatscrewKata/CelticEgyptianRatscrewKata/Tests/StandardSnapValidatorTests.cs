@@ -13,14 +13,27 @@ namespace CelticEgyptianRatscrewKata.Tests
         [Test]
         public void EmptyStackIsNotSnap()
         {
-            var stack = new Stack(Enumerable.Empty<Card>());
+            var stack = new Stack(Cards());
             var isSnap = IsSnap(stack);
             Assert.That(isSnap, Is.False);
         }
 
+        [Test]
+        public void SingleCardIsNotSnap()
+        {
+            var stack = new Stack(Cards(new Card(Suit.Clubs, Rank.Ace)));
+            var isSnap = IsSnap(stack);
+            Assert.That(isSnap, Is.False);
+        }
+
+        private static IEnumerable<Card> Cards(params Card[] cards)
+        {
+            return cards;
+        }
+
         private bool IsSnap(Stack stack)
         {
-            throw new NotImplementedException();
+            return false;
         }
     }
 }

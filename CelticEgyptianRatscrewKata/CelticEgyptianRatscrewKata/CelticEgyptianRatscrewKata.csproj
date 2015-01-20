@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Moq">
+      <HintPath>..\packages\Moq.4.2.1409.1722\lib\net40\Moq.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
     </Reference>
@@ -45,6 +48,7 @@
   <ItemGroup>
     <Compile Include="BlackQueenValidator.cs" />
     <Compile Include="Card.cs" />
+    <Compile Include="CompositeSnapValidator.cs" />
     <Compile Include="ISnapValidator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rank.cs" />
@@ -55,6 +59,7 @@
     <Compile Include="StandardSnapValidator.cs" />
     <Compile Include="Tests\SandwichSnapValidatorTests.cs" />
     <Compile Include="Tests\BlackQueenValidatorTests.cs" />
+    <Compile Include="Tests\CompositeSnapValidatorTests.cs" />
     <Compile Include="Tests\StandardSnapValidatorTests.cs" />
   </ItemGroup>
   <ItemGroup>

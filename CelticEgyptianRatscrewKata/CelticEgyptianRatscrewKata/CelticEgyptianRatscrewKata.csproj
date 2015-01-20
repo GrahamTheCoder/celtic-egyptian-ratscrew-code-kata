@@ -48,6 +48,7 @@
     <Compile Include="Stack.cs" />
     <Compile Include="Tests\StackTests.cs" />
     <Compile Include="Suit.cs" />
+    <Compile Include="Tests\StandardSnapValidatorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

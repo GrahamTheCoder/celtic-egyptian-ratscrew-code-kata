@@ -63,6 +63,19 @@ namespace CelticEgyptianRatscrewKata.Tests
         }
 
         [Test]
+        public void OnePlayerGetsAllTheCards()
+        {
+            var gameBuilder = new GameBuilder();
+            Player alice = new Player("alice");
+            gameBuilder.AddPlayer(alice);
+            var game = gameBuilder.Build(new WinStateChecker(), 
+                Cards.With(new Card(Suit.Spades, Rank.Ace), 
+                           new Card(Suit.Spades, Rank.Ace)));
+
+            Assert.AreEqual(2, alice.Cards.Count());
+        }
+
+        [Test]
         public void PlayerGainsSuccessfullySnappedCards()
         {
             var alwaysSnap = new Mock<IRule>();
@@ -139,7 +152,7 @@ namespace CelticEgyptianRatscrewKata.Tests
         {
             if (deck.Any())
             {
-                m_Players.First().Cards.AddToTop(deck.First());
+                m_Players.First().Cards.AddToTop(deck);
             }
 
             return new Game(winStateChecker, m_SnapValidator, m_Players);

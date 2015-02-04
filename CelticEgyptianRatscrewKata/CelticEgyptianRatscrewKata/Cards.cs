@@ -18,6 +18,11 @@ namespace CelticEgyptianRatscrewKata
             m_Cards.Add(card);
         }
 
+        public void AddToTop(IEnumerable<Card> cards)
+        {
+            m_Cards.AddRange(cards);
+        }
+
         public Card Pop()
         {
             var first = m_Cards.First();

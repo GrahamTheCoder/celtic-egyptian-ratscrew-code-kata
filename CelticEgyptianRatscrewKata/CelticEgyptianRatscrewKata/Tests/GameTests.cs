@@ -102,11 +102,11 @@ namespace CelticEgyptianRatscrewKata.Tests
             m_Players.Add(player);
         }
 
-        public Game Build(IWinStateChecker winStateChecker, Cards cards)
+        public Game Build(IWinStateChecker winStateChecker, IEnumerable<Card> deck)
         {
-            if (cards.Any())
+            if (deck.Any())
             {
-                m_Players.First().Cards.AddToTop(cards.First());
+                m_Players.First().Cards.AddToTop(deck.First());
             }
 
             return new Game(winStateChecker, m_Players);

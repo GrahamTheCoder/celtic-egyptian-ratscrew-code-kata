@@ -49,6 +49,30 @@ namespace CelticEgyptianRatscrewKata.Tests
             Assert.That(() => game.PlayCardFrom(alice), Throws.InstanceOf<Exception>());
 
         }
+
+        [Test]
+        public void PlayerCanSnapEmptyStack()
+        {
+            var gameBuilder = new GameBuilder();
+            Player alice = new Player("alice");
+            gameBuilder.AddPlayer(alice);
+            var game = gameBuilder.Build(new WinStateChecker(), Cards.With(new Card(Suit.Spades, Rank.Ace)));
+
+            game.Snap(alice);
+        }
+
+        [Test]
+        public void PlayerGainsSuccessfullySnappedCards()
+        {
+            var gameBuilder = new GameBuilder();
+            Player alice = new Player("alice");
+            gameBuilder.AddPlayer(alice);
+            var game = gameBuilder.Build(new WinStateChecker(), Cards.With(new Card(Suit.Spades, Rank.Ace)));
+            game.PlayCardFrom(alice);
+            game.Snap(alice);
+
+            Assert.That(() => game.PlayCardFrom(alice), Throws.Nothing);
+        }
     }
 
     public interface IWinStateChecker
@@ -134,6 +158,10 @@ namespace CelticEgyptianRatscrewKata.Tests
         public void PlayCardFrom(Player player)
         {
             player.Cards.RemoveCardAt(0);
+        }
+
+        public void Snap(Player player)
+        {
         }
     }
 }

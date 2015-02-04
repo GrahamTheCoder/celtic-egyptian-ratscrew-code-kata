@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CelticEgyptianRatscrewKata.SnapRules;
 using Moq;
 using NUnit.Framework;
 
@@ -64,10 +65,12 @@ namespace CelticEgyptianRatscrewKata.Tests
         [Test]
         public void PlayerGainsSuccessfullySnappedCards()
         {
-            var gameBuilder = new GameBuilder();
+            var alwaysSnap = new Mock<IRule>();
+            alwaysSnap.Setup(x => x.CanSnap(It.IsAny<Cards>())).Returns(true);
+            var gameBuilder = new GameBuilder(alwaysSnap.Object);
             Player alice = new Player("alice");
             gameBuilder.AddPlayer(alice);
-            var game = gameBuilder.Build(new WinStateChecker(), Cards.With(new Card(Suit.Spades, Rank.Ace)));
+            var game = gameBuilder.Build(new WinStateChecker(), Cards.With(new Card(Suit.Spades, Rank.Queen)));
             game.PlayCardFrom(alice);
             game.Snap(alice);
 
@@ -119,7 +122,13 @@ namespace CelticEgyptianRatscrewKata.Tests
 
     public class GameBuilder
     {
-        private List<Player> m_Players = new List<Player>();
+        private readonly IRule m_SnapValidator;
+        private readonly List<Player> m_Players = new List<Player>();
+
+        public GameBuilder(IRule snapValidator = null)
+        {
+            m_SnapValidator = snapValidator ?? new SnapValidator(Enumerable.Empty<IRule>());
+        }
 
         public void AddPlayer(Player player)
         {
@@ -133,18 +142,21 @@ namespace CelticEgyptianRatscrewKata.Tests
                 m_Players.First().Cards.AddToTop(deck.First());
             }
 
-            return new Game(winStateChecker, m_Players);
+            return new Game(winStateChecker, m_SnapValidator, m_Players);
         }
     }
 
     public class Game
     {
         private readonly IWinStateChecker m_WinStateChecker;
+        private readonly IRule m_SnapValidator;
         private readonly IReadOnlyCollection<Player> m_Players;
+        private readonly Cards m_PlayedStack = Cards.Empty();
 
-        public Game(IWinStateChecker winStateChecker, IReadOnlyCollection<Player> players)
+        public Game(IWinStateChecker winStateChecker, IRule snapValidator, IReadOnlyCollection<Player> players)
         {
             m_WinStateChecker = winStateChecker;
+            m_SnapValidator = snapValidator;
             m_Players = players;
         }
 
@@ -157,11 +169,17 @@ namespace CelticEgyptianRatscrewKata.Tests
 
         public void PlayCardFrom(Player player)
         {
-            player.Cards.RemoveCardAt(0);
+            var cardPlayed = player.Cards.Pop();
+            m_PlayedStack.AddToTop(cardPlayed);
         }
 
         public void Snap(Player player)
         {
+            if (m_SnapValidator.CanSnap(m_PlayedStack))
+            {
+                player.Cards.AddToTop(m_PlayedStack.Pop());
+            }
+
         }
     }
 }

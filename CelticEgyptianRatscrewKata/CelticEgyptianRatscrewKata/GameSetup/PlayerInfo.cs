@@ -1,6 +1,6 @@
-namespace ConsoleBasedGame
+namespace CelticEgyptianRatscrewKata.GameSetup
 {
-    internal class PlayerInfo
+    public class PlayerInfo
     {
         public string PlayerName { get; private set; }
         public char PlayCardKey { get; private set; }

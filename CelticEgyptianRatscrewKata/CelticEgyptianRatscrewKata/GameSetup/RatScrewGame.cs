@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using CelticEgyptianRatscrewKata.Game;
 
-namespace ConsoleBasedGame
+namespace CelticEgyptianRatscrewKata.GameSetup
 {
-    class RatScrewGame
+    public class RatScrewGame
     {
         private readonly IGameSetupUserInterface m_SetupInterface;
         private readonly IGamePlayUserInterface m_GamePlayInterface;
@@ -40,6 +40,7 @@ namespace ConsoleBasedGame
             char userInput;
             while (m_GamePlayInterface.TryReadUserInput(out userInput))
             {
+
             }
         }
     }

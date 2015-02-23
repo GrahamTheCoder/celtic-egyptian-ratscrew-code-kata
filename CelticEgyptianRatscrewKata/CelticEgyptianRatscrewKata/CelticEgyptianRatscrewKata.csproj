@@ -48,9 +48,13 @@
     <Compile Include="Card.cs" />
     <Compile Include="GameSetup\Dealer.cs" />
     <Compile Include="GameSetup\IDealer.cs" />
+    <Compile Include="GameSetup\IGamePlayUserInterface.cs" />
+    <Compile Include="GameSetup\IGameSetupUserInterface.cs" />
     <Compile Include="GameSetup\IRandomNumberGenerator.cs" />
     <Compile Include="GameSetup\IShuffler.cs" />
+    <Compile Include="GameSetup\PlayerInfo.cs" />
     <Compile Include="GameSetup\RandomNumberGenerator.cs" />
+    <Compile Include="GameSetup\RatScrewGame.cs" />
     <Compile Include="GameSetup\Shuffler.cs" />
     <Compile Include="Game\GameController.cs" />
     <Compile Include="Game\GameFactory.cs" />
@@ -70,6 +74,7 @@
     <Compile Include="SnapRules\SandwichSnapRule.cs" />
     <Compile Include="Tests\DealerTests.cs" />
     <Compile Include="Tests\GameControllerTests.cs" />
+    <Compile Include="Tests\RatScrewGameTests.cs" />
     <Compile Include="Tests\SandwichSnapRuleTests.cs" />
     <Compile Include="Tests\ShufflerTests.cs" />
     <Compile Include="Tests\SnapValidatorTests.cs" />

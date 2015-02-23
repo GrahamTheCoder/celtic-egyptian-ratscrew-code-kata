@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using CelticEgyptianRatscrewKata.Game;
 
 namespace CelticEgyptianRatscrewKata.GameSetup
@@ -8,6 +10,7 @@ namespace CelticEgyptianRatscrewKata.GameSetup
         private readonly IGameSetupUserInterface m_SetupInterface;
         private readonly IGamePlayUserInterface m_GamePlayInterface;
         private readonly IGameFactory m_GameFactory;
+        private readonly IDictionary<char, Action<GameController>> m_PlayerActions = new Dictionary<char, Action<GameController>>();
 
         public RatScrewGame(IGameSetupUserInterface setupInterface, IGamePlayUserInterface gamePlayInterface, IGameFactory gameFactory = null)
         {
@@ -29,7 +32,10 @@ namespace CelticEgyptianRatscrewKata.GameSetup
 
             foreach (PlayerInfo playerInfo in playerInfos)
             {
-                m_GameFactory.AddPlayer(new Player(playerInfo.PlayerName));
+                var player = new Player(playerInfo.PlayerName);
+                m_GameFactory.AddPlayer(player);
+                m_PlayerActions.Add(playerInfo.PlayCardKey, game => game.PlayCard(player));
+                m_PlayerActions.Add(playerInfo.SnapKey, game => game.AttemptSnap(player));
             }
             return m_GameFactory.Create();
         }
@@ -39,9 +45,14 @@ namespace CelticEgyptianRatscrewKata.GameSetup
             game.StartGame(cards);
 
             char userInput;
-            while (m_GamePlayInterface.TryReadUserInput(out userInput))
+            IPlayer winner;
+            while (!game.TryGetWinner(out winner) && m_GamePlayInterface.TryReadUserInput(out userInput))
             {
-                game.PlayCard(new Player("Ali"));
+                Action<GameController> action;
+                if (m_PlayerActions.TryGetValue(userInput, out action))
+                {
+                    action(game);
+                }
             }
         }
     }

@@ -7,26 +7,35 @@ namespace ConsoleBasedGame
     {
         static void Main(string[] args)
         {
-            var gameFactory = new GameFactory();
-
 
             var userInterface = new ConsoleInterface();
-            IEnumerable<PlayerInfo> playerInfos = userInterface.GetPlayerInfoFromUserLazily();
 
-            foreach (PlayerInfo playerInfo in playerInfos)
-            {
-                gameFactory.AddPlayer(new Player(playerInfo.PlayerName));
-            }
+            var gameFactory = SetupGame(userInterface);
+            PlayGame(gameFactory, userInterface);
+        }
 
-
+        private static void PlayGame(GameFactory gameFactory, ConsoleInterface userInterface)
+        {
             GameController game = gameFactory.Create();
             game.StartGame(GameFactory.CreateFullDeckOfCards());
 
             char userInput;
             while (userInterface.TryReadUserInput(out userInput))
             {
+            }
+        }
 
-            } 
+        private static GameFactory SetupGame(ConsoleInterface userInterface)
+        {
+            var gameFactory = new GameFactory();
+
+            IEnumerable<PlayerInfo> playerInfos = userInterface.GetPlayerInfoFromUserLazily();
+
+            foreach (PlayerInfo playerInfo in playerInfos)
+            {
+                gameFactory.AddPlayer(new Player(playerInfo.PlayerName));
+            }
+            return gameFactory;
         }
     }
 }

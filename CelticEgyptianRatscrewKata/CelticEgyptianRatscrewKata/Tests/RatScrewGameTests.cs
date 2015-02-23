@@ -8,7 +8,7 @@ namespace CelticEgyptianRatscrewKata.Tests
     class RatScrewGameTests
     {
         [Test]
-        public void CheckItDoesntExplode()
+        public void TerminatesWhenNoUserInputAvailable()
         {
             char userInput;
             var setupMock = new Mock<IGameSetupUserInterface>();

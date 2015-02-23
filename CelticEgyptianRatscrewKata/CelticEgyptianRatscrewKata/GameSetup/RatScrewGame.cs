@@ -7,31 +7,31 @@ namespace CelticEgyptianRatscrewKata.GameSetup
     {
         private readonly IGameSetupUserInterface m_SetupInterface;
         private readonly IGamePlayUserInterface m_GamePlayInterface;
-        private readonly GameFactory m_GameFactory;
+        private readonly IGameFactory m_GameFactory;
 
-        public RatScrewGame(IGameSetupUserInterface setupInterface, IGamePlayUserInterface gamePlayInterface)
+        public RatScrewGame(IGameSetupUserInterface setupInterface, IGamePlayUserInterface gamePlayInterface, IGameFactory gameFactory = null)
         {
             m_SetupInterface = setupInterface;
             m_GamePlayInterface = gamePlayInterface;
-            m_GameFactory = new GameFactory();
+            m_GameFactory = gameFactory ?? new GameFactory();
         }
 
         public void Play()
         {
-            var gameController = SetupGame(m_GameFactory);
+            var gameController = SetupGame();
             var cards = m_GameFactory.CreateFullDeckOfCards();
             StartGame(gameController, cards);
         }
 
-        private GameController SetupGame(GameFactory factory)
+        private GameController SetupGame()
         {
             IEnumerable<PlayerInfo> playerInfos = m_SetupInterface.GetPlayerInfoFromUserLazily();
 
             foreach (PlayerInfo playerInfo in playerInfos)
             {
-                factory.AddPlayer(new Player(playerInfo.PlayerName));
+                m_GameFactory.AddPlayer(new Player(playerInfo.PlayerName));
             }
-            return factory.Create();
+            return m_GameFactory.Create();
         }
 
         private void StartGame(GameController game, Cards cards)

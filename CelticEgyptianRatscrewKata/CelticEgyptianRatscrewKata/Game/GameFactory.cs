@@ -5,7 +5,7 @@ using CelticEgyptianRatscrewKata.SnapRules;
 
 namespace CelticEgyptianRatscrewKata.Game
 {
-    public class GameFactory
+    public class GameFactory : IGameFactory
     {
         private readonly IList<IPlayer> m_Players = new List<IPlayer>();
 

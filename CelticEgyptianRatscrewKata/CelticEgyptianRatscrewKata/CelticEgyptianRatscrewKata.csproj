@@ -59,6 +59,7 @@
     <Compile Include="Game\GameController.cs" />
     <Compile Include="Game\GameFactory.cs" />
     <Compile Include="Game\GameState.cs" />
+    <Compile Include="Game\IGameFactory.cs" />
     <Compile Include="Game\IGameState.cs" />
     <Compile Include="Game\IPlayer.cs" />
     <Compile Include="Cards.cs" />

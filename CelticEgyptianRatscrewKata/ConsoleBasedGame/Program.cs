@@ -7,10 +7,9 @@ namespace ConsoleBasedGame
     {
         static void Main(string[] args)
         {
-            var userInterface = new ConsoleInterface();
-            var ratscrewGame = new RatScrewGame();
-            var gameController = ratscrewGame.SetupGame(userInterface);
-            ratscrewGame.PlayGame(gameController, userInterface);
+            var consoleInterface = new ConsoleInterface();
+            var ratscrewGame = new RatScrewGame(consoleInterface, consoleInterface);
+            ratscrewGame.Play();
         }
     }
 }

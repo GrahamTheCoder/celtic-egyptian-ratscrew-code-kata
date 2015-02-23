@@ -7,16 +7,13 @@ namespace ConsoleBasedGame
     {
         static void Main(string[] args)
         {
-
             var userInterface = new ConsoleInterface();
-
             var gameFactory = SetupGame(userInterface);
             PlayGame(gameFactory, userInterface);
         }
 
-        private static void PlayGame(GameFactory gameFactory, IGamePlayUserInterface userInterface)
+        private static void PlayGame(GameController game, IGamePlayUserInterface userInterface)
         {
-            GameController game = gameFactory.Create();
             game.StartGame(GameFactory.CreateFullDeckOfCards());
 
             char userInput;
@@ -25,7 +22,7 @@ namespace ConsoleBasedGame
             }
         }
 
-        private static GameFactory SetupGame(IGameSetupUserInterface userInterface)
+        private static GameController SetupGame(IGameSetupUserInterface userInterface)
         {
             var gameFactory = new GameFactory();
 
@@ -35,7 +32,7 @@ namespace ConsoleBasedGame
             {
                 gameFactory.AddPlayer(new Player(playerInfo.PlayerName));
             }
-            return gameFactory;
+            return gameFactory.Create();
         }
     }
 }

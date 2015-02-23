@@ -14,13 +14,37 @@ namespace CelticEgyptianRatscrewKata.Tests
         {
             var playerInfos = CreatePlayers();
             var setupMock = MockGameSetupUserInterface(playerInfos);
-            var gamePlayMock = new CannedResponseUserInterface();
+            var gamePlayMock = new CannedResponseUserInterface(Enumerable.Empty<char>());
 
             var game = new RatScrewGame(setupMock.Object, gamePlayMock);
             game.Play();
 
             setupMock.Verify(x => x.GetPlayerInfoFromUserLazily(), Times.Once());
             Assert.That(gamePlayMock.TimesCalled, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void LayAllCards()
+        {
+            var playerInfos = CreatePlayers();
+            var setupMock = MockGameSetupUserInterface(playerInfos);
+            var gamePlayMock = new CannedResponseUserInterface(Enumerable.Repeat('1', 52));
+
+            var game = new RatScrewGame(setupMock.Object, gamePlayMock);
+            game.Play();
+            
+            Assert.That(gamePlayMock.TimesCalled, Is.EqualTo(53));
+        }
+
+        [Test]
+        public void LayMoreThanAllCards()
+        {
+            var playerInfos = CreatePlayers();
+            var setupMock = MockGameSetupUserInterface(playerInfos);
+            var gamePlayMock = new CannedResponseUserInterface(Enumerable.Repeat('1', 53));
+
+            var game = new RatScrewGame(setupMock.Object, gamePlayMock);
+            Assert.That(game.Play, Throws.Exception);
         }
 
         private static Mock<IGameSetupUserInterface> MockGameSetupUserInterface(PlayerInfo[] playerInfos)
@@ -40,8 +64,8 @@ namespace CelticEgyptianRatscrewKata.Tests
     internal class CannedResponseUserInterface : IGamePlayUserInterface
     {
         private readonly Queue<char> m_Characters;
-
-        public CannedResponseUserInterface(params char[] characters)
+        
+        public CannedResponseUserInterface(IEnumerable<char> characters)
         {
             m_Characters = new Queue<char>(characters);
         }

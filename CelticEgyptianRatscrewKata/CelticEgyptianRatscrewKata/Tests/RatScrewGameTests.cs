@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CelticEgyptianRatscrewKata.GameSetup;
+﻿using CelticEgyptianRatscrewKata.GameSetup;
 using Moq;
 using NUnit.Framework;
 
@@ -15,17 +10,18 @@ namespace CelticEgyptianRatscrewKata.Tests
         [Test]
         public void CheckItDoesntExplode()
         {
-            //var mockConsoleInterface = new Mock<I>
+            char userInput;
             var setupMock = new Mock<IGameSetupUserInterface>();
+            setupMock.Setup(x => x.GetPlayerInfoFromUserLazily()).Returns(new[] {new PlayerInfo("Ali", '1', 'a'),});
             var gamePlayMock = new Mock<IGamePlayUserInterface>();
-            
+            gamePlayMock.Setup(x => x.TryReadUserInput(out userInput)).Returns(false);
+
             var game = new RatScrewGame(setupMock.Object, gamePlayMock.Object);
             game.Play();
 
             setupMock.Verify(x => x.GetPlayerInfoFromUserLazily(), Times.Once());
-            char input;
-            gamePlayMock.Verify(x => x.TryReadUserInput(out input), Times.Once());
-            
+            gamePlayMock.Verify(x => x.TryReadUserInput(out userInput), Times.Once());
+
         }
     }
 }

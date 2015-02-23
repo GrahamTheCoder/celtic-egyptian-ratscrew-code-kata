@@ -16,21 +16,13 @@ namespace CelticEgyptianRatscrewKata.Game
         private readonly IList<IPlayer> m_Players;
         private readonly IGameState m_GameState;
 
-        public GameController(IGameState gameState, ISnapValidator snapValidator, IDealer dealer, IShuffler shuffler)
+        public GameController(IGameState gameState, ISnapValidator snapValidator, IDealer dealer, IShuffler shuffler, IList<IPlayer> players)
         {
-            m_Players = new List<IPlayer>();
             m_GameState = gameState;
             m_SnapValidator = snapValidator;
             m_Dealer = dealer;
             m_Shuffler = shuffler;
-        }
-
-        public bool AddPlayer(IPlayer player)
-        {
-            if (m_Players.Any(x => x.Name == player.Name)) return false;
-
-            m_Players.Add(player);
-            return true;
+            m_Players = players;
         }
 
         public void PlayCard(IPlayer player)

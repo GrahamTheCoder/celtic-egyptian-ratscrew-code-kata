@@ -1,10 +1,14 @@
-﻿using CelticEgyptianRatscrewKata.GameSetup;
+﻿using System.Collections.Generic;
+using System.Linq;
+using CelticEgyptianRatscrewKata.GameSetup;
 using CelticEgyptianRatscrewKata.SnapRules;
 
 namespace CelticEgyptianRatscrewKata.Game
 {
     public class GameFactory
     {
+        private readonly IList<IPlayer> m_Players = new List<IPlayer>();
+
         public GameController Create()
         {
             IRule[] rules =
@@ -13,7 +17,15 @@ namespace CelticEgyptianRatscrewKata.Game
                 new SandwichSnapRule(),
                 new StandardSnapRule(),
             };
-            return new GameController(new GameState(), new SnapValidator(rules), new Dealer(), new Shuffler());
+            return new GameController(new GameState(), new SnapValidator(rules), new Dealer(), new Shuffler(), m_Players);
+        }
+
+        public bool AddPlayer(IPlayer player)
+        {
+            if (m_Players.Any(x => x.Name == player.Name)) return false;
+
+            m_Players.Add(player);
+            return true;
         }
 
         public static Cards CreateFullDeckOfCards()

@@ -12,18 +12,13 @@ namespace CelticEgyptianRatscrewKata.Tests
         public void RedRouteValidSnapAfterSeveralCardsLaid()
         {
             // Arrange
-            var gameController = CreateGameController();
             var playerA = new Player("playerA");
             var playerB = new Player("playerB");
             var playerC = new Player("playerC");
             var playerD = new Player("playerD");
+            var gameController = CreateGameController(playerA, playerB, playerC, playerD);
             var deck = CreateNewSimpleDeck();
-
-            // Act
-            gameController.AddPlayer(playerA);
-            gameController.AddPlayer(playerB);
-            gameController.AddPlayer(playerC);
-            gameController.AddPlayer(playerD);
+            
             gameController.StartGame(deck);
 
             gameController.PlayCard(playerA);
@@ -47,14 +42,14 @@ namespace CelticEgyptianRatscrewKata.Tests
             Assert.That(winner.Name, Is.EqualTo(playerC.Name));
         }
 
-        private static GameController CreateGameController()
+        private static GameController CreateGameController(params IPlayer[] players)
         {
             var gameState = new GameState();
             var completeSnapValidator = CreateCompleteSnapValidator();
             var dealer = new Dealer();
             var noneShufflingShuffler = new NoneShufflingShuffler();
 
-            return new GameController(gameState, completeSnapValidator, dealer, noneShufflingShuffler);
+            return new GameController(gameState, completeSnapValidator, dealer, noneShufflingShuffler, players);
         }
 
         private static ISnapValidator CreateCompleteSnapValidator()

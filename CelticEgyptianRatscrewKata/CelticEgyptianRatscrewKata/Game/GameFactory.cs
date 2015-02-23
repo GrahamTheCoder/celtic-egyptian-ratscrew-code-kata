@@ -28,7 +28,7 @@ namespace CelticEgyptianRatscrewKata.Game
             return true;
         }
 
-        public static Cards CreateFullDeckOfCards()
+        public Cards CreateFullDeckOfCards()
         {
             return Cards.With(
                 new Card(Suit.Clubs, Rank.Ace),

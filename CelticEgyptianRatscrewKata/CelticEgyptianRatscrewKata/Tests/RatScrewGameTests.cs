@@ -1,4 +1,6 @@
-﻿using CelticEgyptianRatscrewKata.GameSetup;
+﻿using System.Collections.Generic;
+using System.Linq;
+using CelticEgyptianRatscrewKata.GameSetup;
 using Moq;
 using NUnit.Framework;
 
@@ -10,18 +12,48 @@ namespace CelticEgyptianRatscrewKata.Tests
         [Test]
         public void TerminatesWhenNoUserInputAvailable()
         {
-            char userInput;
-            var setupMock = new Mock<IGameSetupUserInterface>();
-            setupMock.Setup(x => x.GetPlayerInfoFromUserLazily()).Returns(new[] {new PlayerInfo("Ali", '1', 'a'),});
-            var gamePlayMock = new Mock<IGamePlayUserInterface>();
-            gamePlayMock.Setup(x => x.TryReadUserInput(out userInput)).Returns(false);
+            var playerInfos = CreatePlayers();
+            var setupMock = MockGameSetupUserInterface(playerInfos);
+            var gamePlayMock = new CannedResponseUserInterface();
 
-            var game = new RatScrewGame(setupMock.Object, gamePlayMock.Object);
+            var game = new RatScrewGame(setupMock.Object, gamePlayMock);
             game.Play();
 
             setupMock.Verify(x => x.GetPlayerInfoFromUserLazily(), Times.Once());
-            gamePlayMock.Verify(x => x.TryReadUserInput(out userInput), Times.Once());
-
+            Assert.That(gamePlayMock.TimesCalled, Is.EqualTo(1));
         }
+
+        private static Mock<IGameSetupUserInterface> MockGameSetupUserInterface(PlayerInfo[] playerInfos)
+        {
+            var setupMock = new Mock<IGameSetupUserInterface>();
+            setupMock.Setup(x => x.GetPlayerInfoFromUserLazily()).Returns(playerInfos);
+            return setupMock;
+        }
+
+        private static PlayerInfo[] CreatePlayers()
+        {
+            return new[] {new PlayerInfo("Ali", '1', 'a'),};
+        }
+    }
+
+
+    internal class CannedResponseUserInterface : IGamePlayUserInterface
+    {
+        private readonly Queue<char> m_Characters;
+
+        public CannedResponseUserInterface(params char[] characters)
+        {
+            m_Characters = new Queue<char>(characters);
+        }
+
+        public bool TryReadUserInput(out char userInput)
+        {
+            TimesCalled++;
+            var hasCharacters = m_Characters.Any();
+            userInput = hasCharacters ? m_Characters.Dequeue() : default(char);
+            return hasCharacters;
+        }
+
+        public int TimesCalled { get; private set; }
     }
 }

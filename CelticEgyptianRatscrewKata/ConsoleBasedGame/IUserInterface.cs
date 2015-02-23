@@ -2,9 +2,13 @@
 
 namespace ConsoleBasedGame
 {
-    internal interface IUserInterface
+    internal interface IGamePlayUserInterface
+    {
+        bool TryReadUserInput(out char userInput);
+    }
+
+    internal interface IGameSetupUserInterface
     {
         IEnumerable<PlayerInfo> GetPlayerInfoFromUserLazily();
-        bool TryReadUserInput(out char userInput);
     }
 }

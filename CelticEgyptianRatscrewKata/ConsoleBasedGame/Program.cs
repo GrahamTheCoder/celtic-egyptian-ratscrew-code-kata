@@ -14,7 +14,7 @@ namespace ConsoleBasedGame
             PlayGame(gameFactory, userInterface);
         }
 
-        private static void PlayGame(GameFactory gameFactory, ConsoleInterface userInterface)
+        private static void PlayGame(GameFactory gameFactory, IGamePlayUserInterface userInterface)
         {
             GameController game = gameFactory.Create();
             game.StartGame(GameFactory.CreateFullDeckOfCards());
@@ -25,7 +25,7 @@ namespace ConsoleBasedGame
             }
         }
 
-        private static GameFactory SetupGame(ConsoleInterface userInterface)
+        private static GameFactory SetupGame(IGameSetupUserInterface userInterface)
         {
             var gameFactory = new GameFactory();
 

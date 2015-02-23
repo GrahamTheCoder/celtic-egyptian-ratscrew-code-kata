@@ -13,7 +13,7 @@ namespace CelticEgyptianRatscrewKata.Tests
             var deck = Cards.Empty();
             var dealer = new Dealer();
 
-            Assert.That(dealer.Deal(0, deck), Throws.InstanceOf<NotSupportedException>());
+            Assert.That(() => dealer.Deal(0, deck), Throws.InstanceOf<NotSupportedException>());
         }
 
         [Test]

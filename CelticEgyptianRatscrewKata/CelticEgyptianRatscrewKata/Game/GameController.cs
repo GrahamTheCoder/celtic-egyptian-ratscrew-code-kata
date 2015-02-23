@@ -30,7 +30,6 @@ namespace CelticEgyptianRatscrewKata.Game
             if (m_Players.Any(x => x.Name == player.Name)) return false;
 
             m_Players.Add(player);
-            m_GameState.AddPlayer(player.Name, Cards.Empty());
             return true;
         }
 
@@ -44,8 +43,6 @@ namespace CelticEgyptianRatscrewKata.Game
 
         public void AttemptSnap(IPlayer player)
         {
-            AddPlayer(player);
-
             if (m_SnapValidator.CanSnap(m_GameState.Stack))
             {
                 m_GameState.WinStack(player.Name);

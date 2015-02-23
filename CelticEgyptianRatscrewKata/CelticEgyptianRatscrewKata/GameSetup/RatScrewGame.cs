@@ -18,23 +18,20 @@ namespace CelticEgyptianRatscrewKata.GameSetup
 
         public void Play()
         {
-            var gameFactory = m_GameFactory;
-            var gameController = SetupGame(gameFactory);
-            var cards = gameFactory.CreateFullDeckOfCards();
+            var gameController = SetupGame(m_GameFactory);
+            var cards = m_GameFactory.CreateFullDeckOfCards();
             StartGame(gameController, cards);
         }
 
         private GameController SetupGame(GameFactory factory)
         {
-            var gameFactory = factory;
-
             IEnumerable<PlayerInfo> playerInfos = m_SetupInterface.GetPlayerInfoFromUserLazily();
 
             foreach (PlayerInfo playerInfo in playerInfos)
             {
-                gameFactory.AddPlayer(new Player(playerInfo.PlayerName));
+                factory.AddPlayer(new Player(playerInfo.PlayerName));
             }
-            return gameFactory.Create();
+            return factory.Create();
         }
 
         private void StartGame(GameController game, Cards cards)

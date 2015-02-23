@@ -49,7 +49,7 @@ namespace CelticEgyptianRatscrewKata.Game
             m_GameState.Clear();
 
             var shuffledDeck = m_Shuffler.Shuffle(deck);
-            var decks = m_Dealer.Deal(m_Players.Count, shuffledDeck);
+            var decks = m_Dealer.Deal((uint) m_Players.Count, shuffledDeck);
             for (var i = 0; i < decks.Count; i++)
             {
                 m_GameState.AddPlayer(m_Players[i].Name, decks[i]);

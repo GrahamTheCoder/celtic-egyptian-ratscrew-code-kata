@@ -1,12 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 
 namespace CelticEgyptianRatscrewKata.GameSetup
 {
     public class Dealer : IDealer
     {
-        public List<Cards> Deal(int numberOfHands, Cards deck)
+        public List<Cards> Deal(uint numberOfHands, Cards deck)
         {
+            if (numberOfHands <= 0) throw new NotSupportedException("Can only deal to one or more players");
+
             var hands = new List<Cards>();
 
             for (int i = 0; i < numberOfHands; i++)

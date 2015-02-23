@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CelticEgyptianRatscrewKata.GameSetup;
 using NUnit.Framework;
 
@@ -6,6 +7,15 @@ namespace CelticEgyptianRatscrewKata.Tests
 {
     public class DealerTests
     {
+        [Test]
+        public void DealingAnythingToZeroPiles()
+        {
+            var deck = Cards.Empty();
+            var dealer = new Dealer();
+
+            Assert.That(dealer.Deal(0, deck), Throws.InstanceOf<NotSupportedException>());
+        }
+
         [Test]
         public void DealingAnEmptyDeckToOnePile()
         {

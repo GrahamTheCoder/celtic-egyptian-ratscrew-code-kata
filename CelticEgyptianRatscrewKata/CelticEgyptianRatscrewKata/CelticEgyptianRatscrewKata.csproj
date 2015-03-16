@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Card.cs" />
+    <Compile Include="Game\CallingOutSnapGameController.cs" />
     <Compile Include="Game\IGameController.cs" />
     <Compile Include="Game\IGameFactory.cs" />
     <Compile Include="Game\IPenalties.cs" />
@@ -55,6 +56,8 @@
     <Compile Include="Game\Penalties.cs" />
     <Compile Include="Game\PlayerSequence.cs" />
     <Compile Include="ILog.cs" />
+    <Compile Include="SnapRules\CallingOutSnapRule.cs" />
+    <Compile Include="SnapRules\CallingOutTracker.cs" />
     <Compile Include="SnapRules\DarkQueenSnapRule.cs" />
     <Compile Include="GameSetup\Dealer.cs" />
     <Compile Include="GameSetup\IDealer.cs" />
@@ -71,13 +74,16 @@
     <Compile Include="Game\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rank.cs" />
+    <Compile Include="SnapRules\ICallingOutTracker.cs" />
     <Compile Include="SnapRules\ISnapRule.cs" />
+    <Compile Include="SnapRules\LoggedCallingOutTracker.cs" />
     <Compile Include="SnapRules\SandwichSnapRule.cs" />
     <Compile Include="SnapRules\ISnapValidator.cs" />
     <Compile Include="SnapRules\SnapValidator.cs" />
     <Compile Include="SnapRules\StandardSnapRule.cs" />
     <Compile Include="Tests\EndToEndPenaltyTests.cs" />
     <Compile Include="Tests\PlayerSequenceTests.cs" />
+    <Compile Include="Tests\SnapRules\CallingOutSnapRuleTests.cs" />
     <Compile Include="Tests\SnapRules\DarkQueenRuleTests.cs" />
     <Compile Include="Tests\SnapRules\SandwichSnapRuleTests.cs" />
     <Compile Include="Tests\SnapRules\StandardSnapRuleTests.cs" />

@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using CelticEgyptianRatscrewKata.Game;
+﻿using CelticEgyptianRatscrewKata.Game;
 using CelticEgyptianRatscrewKata.GameSetup;
 using CelticEgyptianRatscrewKata.SnapRules;
 using NSubstitute;
 using NUnit.Framework;
 
-namespace CelticEgyptianRatscrewKata.Tests
+namespace CelticEgyptianRatscrewKata.Tests.EndToEnd
 {
     [TestFixture]
     public class EndToEndPenaltyTests

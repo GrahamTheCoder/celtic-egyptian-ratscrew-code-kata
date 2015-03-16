@@ -2,11 +2,12 @@ namespace CelticEgyptianRatscrewKata.SnapRules
 {
     public class LoggedCallingOutTracker : ICallingOutTracker
     {
-        private ICallingOutTracker m_Child;
+        private readonly ICallingOutTracker m_Child;
 
         public LoggedCallingOutTracker(ICallingOutTracker child, ILog log)
         {
             m_Log = log;
+            m_Child = child;
         }
 
         private ILog m_Log;
